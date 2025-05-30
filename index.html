@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evento Especial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-image: url('chamada.png'); /* Insira o caminho correto da imagem */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            background-repeat: no-repeat;
+        }
+
+        header {
+            background-color: rgba(233, 185, 90, 0.8);
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .btn {
+            background-color: rgba(233, 185, 90, 0.8);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px auto;
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 4%;
+            padding: 10px 20px;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+            pointer-events: auto;
+
+            display: flex;            /* para alinhar horizontalmente */
+            align-items: center;      /* alinha verticalmente */
+            justify-content: center;  /* centraliza horizontalmente */
+            gap: 15px;                /* espaço entre imagem e texto */
+            box-sizing: border-box;
+        }
+
+        footer.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        footer img {
+            height: 40px;            /* ajuste o tamanho da logo */
+            object-fit: contain;
+            user-select: none;       /* evita seleção da imagem */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Seminário de Dança Kids</h1>
+    </header>
+
+    <section>
+        <h2>Informações</h2>
+        <p>📅 Data: 19 de Junho de 2025</p>
+        <p>⏰ Horário: 14:30h</p>
+        <p>📍 Local: Rua Mauro Soeiro Banhos nº73 Bairro Planalto, Linhares</p>
+    </section>
+
+    <section>
+        <h2>Inscrição</h2>
+        <p>Garanta sua vaga no evento! Clique no botão abaixo:</p>
+        <a href="https://forms.gle/m9FJEJa2MG2Ag2d89" class="btn" id="btnInscricao">Inscreva-se</a>
+    </section>
+
+    <section>
+        <h2>Cronograma</h2>
+        <p>Acesse o cronograma abaixo:</p>
+        <a href="cronograma.html" class="btn" id="btnCronograma">Cronograma</a>
+    </section>
+
+    <footer id="footer">
+        <p>&copy; 2025 Evento Especial - Seminário de dança Kids IBNAP - Comunicação e Mídia</p>
+        <img src="cem.png" alt="Logo cem" />
+    </footer>
+
+    <script>
+        function isOverlapping(el1, el2) {
+            const rect1 = el1.getBoundingClientRect();
+            const rect2 = el2.getBoundingClientRect();
+
+            return !(
+                rect1.bottom < rect2.top ||
+                rect1.top > rect2.bottom ||
+                rect1.right < rect2.left ||
+                rect1.left > rect2.right
+            );
+        }
+
+        function checkOverlap() {
+            const footer = document.getElementById('footer');
+            const buttons = document.querySelectorAll('.btn');
+
+            let overlapping = false;
+
+            buttons.forEach(btn => {
+                if (isOverlapping(footer, btn)) {
+                    overlapping = true;
+                }
+            });
+
+            if (overlapping) {
+                footer.classList.add('hidden');
+            } else {
+                footer.classList.remove('hidden');
+            }
+        }
+
+        // Verifica ao carregar, redimensionar e rolar a página
+        window.addEventListener('load', checkOverlap);
+        window.addEventListener('resize', checkOverlap);
+        window.addEventListener('scroll', checkOverlap);
+    </script>
+</body>
+</html>

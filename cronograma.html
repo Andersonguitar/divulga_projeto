@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cronograma do Seminário de Dança Kids</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            text-align: center;
+            background-image: url('chamada.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            background-repeat: no-repeat;
+        }
+
+        header { 
+            background-color: rgba(233, 185, 90, 0.8);
+            color: white; 
+            padding: 20px; 
+            font-size: 24px;
+        }
+
+        section { 
+            padding: 20px; 
+        }
+
+        table {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            border-collapse: collapse;
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #fff;
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 4%;
+            display: flex;
+            align-items: center;      /* Alinha verticalmente */
+            justify-content: center;  /* Centraliza horizontalmente */
+            gap: 15px;                /* Espaço entre texto e imagem */
+            box-sizing: border-box;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        footer.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        footer p {
+            margin: 0;                /* Remove margem padrão do <p> */
+            font-size: 14px;
+        }
+
+        footer img {
+            height: 60px;             /* Ajuste a altura que quiser */
+            object-fit: contain;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cronograma do Seminário</h1>
+    </header>
+
+    <section>
+        <h2>Fique por dentro da Programação</h2>
+        <table id="tabelaCronograma">
+            <tr><th>Horário</th><th>Atividade</th></tr>
+            <tr><td>14:30</td><td>Credenciamento</td></tr>
+            <tr><td>15:00</td><td>Abertura</td></tr>
+            <tr><td>15:10</td><td>Louvor</td></tr>
+            <tr><td>15:30</td><td>Dinâmica</td></tr>
+            <tr><td>15:50</td><td>Alongamento</td></tr>
+            <tr><td>16:10</td><td>Palavra</td></tr>
+            <tr><td>16:20</td><td>Oficina</td></tr>
+            <tr><td>17:00</td><td>Intervalo</td></tr>
+            <tr><td>17:30</td><td>Encerramento</td></tr>
+        </table>
+    </section>
+
+    <footer id="footer">
+        <p>&copy; 2025 Seminário de Dança Kids IBNAP - Comunicação e Mídia</p>
+        <img src="cem.png" alt="Logo cem" />
+    </footer>
+
+    <script>
+        function isOverlapping(el1, el2) {
+            const rect1 = el1.getBoundingClientRect();
+            const rect2 = el2.getBoundingClientRect();
+
+            return !(
+                rect1.bottom < rect2.top ||
+                rect1.top > rect2.bottom ||
+                rect1.right < rect2.left ||
+                rect1.left > rect2.right
+            );
+        }
+
+        function checkFooterOverlap() {
+            const footer = document.getElementById('footer');
+            const tabela = document.getElementById('tabelaCronograma');
+
+            if (isOverlapping(footer, tabela)) {
+                footer.classList.add('hidden');
+            } else {
+                footer.classList.remove('hidden');
+            }
+        }
+
+        // Executa ao carregar, redimensionar e rolar
+        window.addEventListener('load', checkFooterOverlap);
+        window.addEventListener('resize', checkFooterOverlap);
+        window.addEventListener('scroll', checkFooterOverlap);
+    </script>
+</body>
+</html>
